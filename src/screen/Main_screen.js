@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontFamily: 'san',
-    fontSize: 50,
+    fontSize: 48,
     fontWeight: 'bold',
     color: '#ea5873',
     marginHorizontal: 90,
@@ -42,11 +42,11 @@ const styles = StyleSheet.create({
   highlight: {
     opacity: 0.2,
     marginHorizontal: '33%',
-    marginTop: '59%',
+    marginTop: '61%',
   },
   footer: {
     opacity: 0.2,
-    marginHorizontal: '5%',
+    marginHorizontal: '2%',
   },
 });
 
