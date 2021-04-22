@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "827022667341",
+    "firebase_url": "https://basicusama.firebaseio.com",
+    "project_id": "basicusama",
+    "storage_bucket": "basicusama.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:827022667341:android:2558084acd2df199db3604",
+        "android_client_info": {
+          "package_name": "com.ibex_coin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "827022667341-le6darjcmm8ffla353elp98hofuo9phb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAn4FE-_eXwe2pep7Z6zf-ooe4hXrpjx-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "827022667341-le6darjcmm8ffla353elp98hofuo9phb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

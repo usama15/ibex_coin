@@ -1,12 +1,15 @@
 import React from 'react';
 import {Text, View, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
-import SignUp from './SignUp';
-import {withNavigation} from 'react-navigation';
 import {useNavigation} from '@react-navigation/native';
+import {AuthContext} from './AuthProvider';
 
 const Login = props => {
   const navigation = useNavigation();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const {login} = React.useContext(AuthContext);
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -17,18 +20,25 @@ const Login = props => {
           style={styles.textbar}
           label={'Username'}
           theme={{colors: {text: 'black', primary: '#f4b165'}}}
+          labelValue={email}
+          onChangeText={userEmail => setEmail(userEmail)}
         />
         <TextInput
           mode="outlined"
           style={styles.textbar}
           label={'Password'}
           theme={{colors: {text: 'black', primary: '#f4b165'}}}
+          labelValue={password}
+          onChangeText={userPassword => setPassword(userPassword)}
+          secureTextEntry={true}
+          autoCapitalize="none"
         />
         <Button
           style={styles.btn}
           mode="contained"
           theme={{colors: {primary: '#f4b165'}}}
-          onPress={() => console.log('Pressed')}>
+          onPress={() => login(email, password)}>
+          {' '}
           Login
         </Button>
         <Text style={styles.fo}>New at Ibex Crypto Network ?</Text>
@@ -59,7 +69,7 @@ const styles = StyleSheet.create({
     marginTop: '1%',
   },
   sectionTitle: {
-    flex:1,
+    flex: 1,
     fontSize: 48,
     fontWeight: 'bold',
     color: '#f4b165',
