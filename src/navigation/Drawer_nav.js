@@ -3,8 +3,8 @@ import {Button, View} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import Mine_page from './Mine_page';
-import Setting from './Setting';
+import Mine_page from '../screen/Mine_page';
+import Setting from '../screen/Setting';
 
 const Drawer = createDrawerNavigator();
 

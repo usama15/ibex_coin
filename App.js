@@ -63,67 +63,49 @@ import {
   StyleSheet,
   Text,
   useColorScheme,
+  ImageBackground,
   View,
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import Splash from './src/screen/Splash';
 import SignUp from './src/screen/SignUp';
-import Login from './src/screen/Login';
-import Drawer_nav from './src/screen/Drawer_nav';
-import {AuthContext} from './src/screen/AuthProvider';
-import auth from '@react-native-firebase/auth';
-
-const signUpPage = () => {
-  return <SignUp />;
-};
+import Drawer_nav from './src/navigation/Drawer_nav';
+import auth, {firebase} from '@react-native-firebase/auth';
+import AuthStack from './src/navigation/AuthStack';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {ActivityIndicator} from 'react-native-paper';
 
 const App = () => {
-  const {user, setUser} = React.useContext(AuthContext);
-  const [initializing, setInitializing] = React.useState(true);
-  const onAuthStateChanged = user => {
-    setUser(user);
-    if (initializing) {
-      setInitializing(false);
-    }
-  };
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
+    firebase.auth().onAuthStateChanged(user => {
+      setIsLoggedIn(user);
+      setLoading(false);
+    });
   }, []);
-  const Stack = createStackNavigator();
-  if (initializing) {
-    return null;
+
+  if (loading) {
+    return (
+      <View>
+        {/*<ImageBackground>*/}
+        <View>
+          <MaterialCommunityIcons
+            name="alpha-m-circle"
+            size={220}
+            color="#FFFFFF"
+          />
+
+          <ActivityIndicator animating={true} size="large" color="black" />
+        </View>
+        {/*</ImageBackground>*/}
+      </View>
+    );
   }
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="splash"
-          component={Splash}
-          options={{headerMode: 'none', headerShown: false}}
-        />
-
-        {/*<Stack.Screen name="login" component={Login} />*/}
-
-        <Stack.Screen
-          name="signup"
-          component={signUpPage}
-          options={{headerMode: 'none', headerShown: false}}
-        />
-
-        {user ? (
-          <Stack.Screen
-            name="Drawer"
-            component={Drawer_nav}
-            options={{headerMode: 'none', headerShown: false}}
-          />
-        ) : (
-          <Stack.Screen name="login" component={Login} />
-        )}
-      </Stack.Navigator>
+      {isLoggedIn ? <Drawer_nav /> : <AuthStack />}
     </NavigationContainer>
   );
 };

@@ -105,7 +105,7 @@ const SignUp = () => {
           theme={{colors: {primary: '#f4b165'}}}
           // onPress={() => navigation.navigate('Drawer')}
           // onPress={() => userSignup()}
-          onPress={() => register(email, password)}>
+          onPress={() => register(email, password, name)}>
           Finish
         </Button>
         <Text style={styles.highlight}>Ibex Crypto Network</Text>
@@ -167,8 +167,9 @@ const styles = StyleSheet.create({
     marginTop: '5%',
   },
   footer: {
+    flex: 1,
     opacity: 0.2,
-    marginHorizontal: '2%',
+    marginHorizontal: '5%',
   },
 });
 

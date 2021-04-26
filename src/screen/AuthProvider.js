@@ -1,33 +1,55 @@
 import React from 'react';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
-import {Drawer} from './Drawer_nav';
+import {Drawer} from '../navigation/Drawer_nav';
+import firestore from '@react-native-firebase/firestore';
 
 export const AuthContext = React.createContext();
 
-export const AuthProvider = ({children, navigation}) => {
+export const AuthProvider = ({children}) => {
   const [user, setUser] = React.useState(null);
-  // const navigation = useNavigation();
- 
+  // const [name, setName] = React.useState('');
+
+  return (
     <AuthContext.Provider
       value={{
         user,
         setUser,
-        // login,
-        login: async (email, password) => {
+        login: async (email, password, name) => {
           try {
-            auth().signInWithEmailAndPassword(email, password);
-            alert('login success');
-            navigation.navigate('Drawer');
+            const userDocument = await auth().signInWithEmailAndPassword(
+              email,
+              password,
+            );
+            // await firestore()
+            //   .collection('users')
+            //   .doc(userDocument.user.uid)
+            //   .onSnapshot(doc => {
+            //     setUser({
+            //       name: doc.data().name,
+            //
+            //       // user: {
+            //       // },
+            //     });
+            //   });
+
+            // alert(user);
           } catch (error) {
             alert(error.code);
           }
         },
-        register: async (email, password) => {
+        register: async (email, password, name) => {
           try {
-            await auth().createUserWithEmailAndPassword(email, password);
-            // navigation.navigate('login');
-            alert('register success');
+            const result = await auth().createUserWithEmailAndPassword(
+              email,
+              password,
+              name,
+            );
+            await firestore().collection('users').doc(result.user.uid).set({
+              email: email,
+              uid: result.user.uid,
+              name: name,
+            });
           } catch (error) {
             alert(error.code);
           }
@@ -35,8 +57,8 @@ export const AuthProvider = ({children, navigation}) => {
         logout: async () => {
           try {
             await auth().signOut();
-          } catch (e) {
-            console.log(e);
+          } catch (error) {
+            alert(error.code);
           }
         },
       }}>

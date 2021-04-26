@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, ScrollView, SafeAreaView, StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
 import Header from './Header';
+import {AuthContext} from './AuthProvider';
 
 const Mine_page = () => {
   return (
